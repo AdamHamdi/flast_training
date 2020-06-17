@@ -48,14 +48,41 @@ def login():
    else:   
       username=request.args.get['username']
       password=request.args.get['password']
-      return redirect(url_for('success',name=username))  
+      return redirect(url_for('success',name=username))
+##############################  
 @app.route('/result')
 def result():
    dict={'physic':50,'chemistry':60,'maths':70}
    return render_template('result.html',result=dict)
-@app.route('/')
+@app.route('/student')
 def student():
    return render_template('student.html')
+
+
+@app.route('/result',methods=['POST','GET'])
+def student_subject():
+   if request.method=='POST':
+      result=request.form
+      return render_template('result.html',result=result)   
+###############cookies#################
+@app.route('/index')
+def index():
+   return render_template('index3.html')
+
+@app.route('/getcookie')
+def getcookies():
+  <str name>=request.cookies.get('userID')
+   return '<h1>welcome'+name+'</h1>'
+
+@app.route('/setcookie',methods=['POST','GET'])
+def setcookie():
+   if request.method=='POST':
+      user=request.form['nm']
+      resp=make_response(render_template('readcookies.html'))
+      resp.set_cookie('userID',user)
+      return resp
+   return render_template('index3.html')
+
    
 if __name__ == "__main__":
     app.run(debug=True)
