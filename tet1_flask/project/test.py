@@ -51,8 +51,11 @@ def login():
       return redirect(url_for('success',name=username))  
 @app.route('/result')
 def result():
-   dict={'physic':50,'chemistery':60,'maths':70}
+   dict={'physic':50,'chemistry':60,'maths':70}
    return render_template('result.html',result=dict)
+@app.route('/')
+def student():
+   return render_template('student.html')
    
 if __name__ == "__main__":
     app.run(debug=True)
