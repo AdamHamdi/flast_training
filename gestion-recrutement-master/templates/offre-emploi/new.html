@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+
+{% block title %}
+Ajouter Offre d'Emploi
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title ">Ajouter Offre d'Emploi</h4>
+                        <p class="card-category"> </p>
+                    </div>
+                    <div class="card-body">
+
+                        <form action="" method="post">
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row m-t-5">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Poste</label>
+                                                <input name="poste" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <input name="date_expiration" type="date" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Salaire</label>
+                                                <input name="salaire" type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Description du Poste</label>
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating"></label>
+                                                    <textarea name="description" class="form-control"
+                                                        rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Exigences</label>
+                                                <div class="form-group">
+                                                    <label class="bmd-label-floating"></label>
+                                                    <textarea name="exigence" class="form-control" rows="4"></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Expérience</label>
+                                            <input name="experience" type="text" class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Type Contrat</label>
+                                            <div class="form-check form-check-radio">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="type_contrat"
+                                                        id="type_contrat_1" value="Temps plein" checked>
+                                                    Temps plein
+                                                    <span class="circle">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="type_contrat"
+                                                        id="type_contrat_2" value="CDD">
+                                                    CDD
+                                                    <span class="circle">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="type_contrat"
+                                                        id="type_contrat_3" value="Saisonnier">
+                                                    Saisonnier
+                                                    <span class="circle">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="bmd-label-floating">Niveau d'Etude</label>
+                                            <div class="form-check form-check-radio">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="niveau_etude"
+                                                        id="niveau_etude_1" value="Licence" checked>
+                                                    Licence
+                                                    <span class="circle">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="niveau_etude"
+                                                        id="niveau_etude_2" value="Mastére">
+                                                    Mastére
+                                                    <span class="circle">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                            <div class="form-check form-check-radio">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" name="niveau_etude"
+                                                        id="niveau_etude_3" value="Ingénieur">
+                                                    Ingénieur
+                                                    <span class="circle">
+                                                        <span class="check"></span>
+                                                    </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Avantages</label>
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating"></label>
+                                                <textarea name="avantage" class="form-control" rows="3"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary pull-right">Publier l'offre</button>
+                            <div class="clearfix"></div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
