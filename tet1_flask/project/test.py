@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
-
+from werkzeug.utils import secure_filename 
 app = Flask(__name__)
 @app.route('/')
 def hello():
@@ -71,17 +71,30 @@ def index():
 
 @app.route('/getcookie')
 def getcookies():
-  <str name>=request.cookies.get('userID')
-   return '<h1>welcome'+name+'</h1>'
+    name =request.cookies.get('userID')
+    return 'welcome %s'  %name
 
-@app.route('/setcookie',methods=['POST','GET'])
-def setcookie():
-   if request.method=='POST':
-      user=request.form['nm']
-      resp=make_response(render_template('readcookies.html'))
-      resp.set_cookie('userID',user)
-      return resp
-   return render_template('index3.html')
+# @app.route('/setcookie',methods=['POST','GET'])
+# def setcookie():
+#    if request.method=='POST':
+#       user=request.form['nm']
+#      # resp=make_response(render_template('readcookie.html'))
+#       #resp.header_set('userID',user)
+      
+      
+#    return render_template('index3.html')
+##uploading files
+@app.route('/upload')
+def upload_file():
+   return render_template('upload.html')
+@app.route('/uploader',methods=['GET','POST'])
+def uploader_file():
+
+   if request.method =='POST':
+      f=request.files['file']
+      f.save(secure_filename(f.filename))
+      return 'file uploaded successfully'
+
 
    
 if __name__ == "__main__":
