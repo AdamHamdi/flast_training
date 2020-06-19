@@ -56,3 +56,4 @@ class Utilisateur:
             print('Error: ', e)
         finally:
             close_connection(con, cur)
+  

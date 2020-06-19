@@ -1,7 +1,6 @@
-<form action="{{ url_for('offre_emploi_delete', id=offre[0]) }}" method="POST"
-    onsubmit="return confirm('Supprimer offre ?');">
+<form action="{{ url_for('offre_emploi_delete', id=offre[0]) }}" method="POST" onsubmit="return confirm('Supprimer offre ?');">
     <input type="hidden" name="_method" value="DELETE">
-    <button type="submit" value="Delete" class="btn btn-danger">
+    <button type="submit" value="Delete" class="btn btn-danger btn-round">
         <i class="fa fa-trash-o"></i>
     </button>
 </form>

@@ -1,0 +1,70 @@
+{% extends "base.html" %} {% block title %} Afficher informations les offres d'Emploi {% endblock %}{% block body %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead class=" text-primary">
+                        <tr>
+                            <th>#</th>
+                            <th>Description</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">Poste :</th>
+                            <td>{{ offre[1] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Date :</th>
+                            <td>{{ offre[3] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Salaire :</th>
+                            <td>{{ offre[5] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description du poste :</th>
+                            <td>{{ offre[8] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Exigences:</th>
+                            <td>{{ offre[9] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Experiences :</th>
+                            <td>{{ offre[7] }}</td>
+                        </tr>
+                        <var> <tr>
+                            <th scope="row">Type de contrat :</th>
+                            <td>{{ offre[2] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Niveau d'Etude :</th>
+                            <td>{{ offre[6] }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Avantages :</th>
+                            <td>{{ offre[10] }}</td>
+                        </tr>
+                    </var>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+
+            </div>
+            <div class=" col-md-2 ">
+                <a href="#" class="btn btn-info btn-round">
+                    <i class="material-icons">print</i>
+                </a>
+            </div>
+            <div class="col-md-5">
+
+            </div>
+        </div>
+    </div>
+</div>{% endblock %}

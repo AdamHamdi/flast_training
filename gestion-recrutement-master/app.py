@@ -4,6 +4,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 # import models
 from models.utilisateur import Utilisateur
 from models.recruteur import Recruteur
+from models.admin import Admin
 from models.offre_emploi import OffreEmploi
 
 # to import .env file data
@@ -37,6 +38,10 @@ def login():
 
             if utilisateur[7] == 'RECRUTEUR':
                 return redirect(url_for('recruteur_menu'))
+            elif utilisateur[7] == 'ADMIN':
+                return redirect(url_for('admin_menu')) 
+            elif utilisateur[7] == 'CONDIDAT':
+                return redirect(url_for('admin_menu'))  
 
         else:
             error = 'svp, vérifiez votre email et mot de passe'
@@ -53,6 +58,12 @@ Recruteur Menu
 @app.route('/recruteur', methods=['GET'])
 def recruteur_menu():
     return render_template('recruteur/index.html')
+###########################
+#ADMIN
+@app.route('/admin', methods=['GET'])
+def admin_menu():
+    return render_template('admin/index1.html')
+
 
 
 ################
@@ -110,6 +121,28 @@ def offre_emploi_edit(id):
 
     flash('offre modifier', 'success')
     return redirect(url_for('offre_emploi_index'))
+ #Show_info
+@app.route('/offre-emploi/info/<string:id>', methods=['GET', 'POST'])
+def offre_emploi_info(id):
+
+    if request.method == 'GET':
+        return render_template('/offre-emploi/info.html', offre=OffreEmploi.afficher(id))
+
+    # get form data
+    poste = request.form['poste']
+    date_expiration = request.form['date_expiration']
+    salaire = request.form['salaire']
+    description = request.form['description']
+    exigence = request.form['exigence']
+    experience = request.form['experience']
+    type_contrat = request.form['type_contrat']
+    niveau_etude = request.form['niveau_etude']
+    avantage = request.form['avantage']
+
+    
+   
+    return redirect(url_for('offre_emploi_index'))
+   
 # delete
 @app.route('/offre-emploi/delete/<string:id>', methods=['POST'])
 def offre_emploi_delete(id):
@@ -118,6 +151,13 @@ def offre_emploi_delete(id):
 
     flash('offre supprimer', 'success')
     return redirect(url_for('offre_emploi_index'))
+    #log out rucreteur
+    
+@app.route('/logout')
+def logout():
+    session.clear()
+    
+    return redirect(url_for('login'))
 
 
 if __name__ == '__main__':
