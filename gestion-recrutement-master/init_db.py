@@ -6,17 +6,20 @@ con = open_connection()
 cur = con.cursor()
 
 # drop tables
-drop_tables = [
-    ''' DROP TABLE IF EXISTS demande ''',
-    ''' DROP TABLE IF EXISTS stagiaire ''',
-    ''' DROP TABLE IF EXISTS offre_emploi ''',
-    ''' DROP TABLE IF EXISTS candidat ''',
-    ''' DROP TABLE IF EXISTS recruteur ''',
-    ''' DROP TABLE IF EXISTS utilisateur ''']
+# drop_tables = [
+#     ''' DROP TABLE IF EXISTS demande ''',
+#     ''' DROP TABLE IF EXISTS experiences''',
+#     ''' DROP TABLE IF EXISTS formations''',
+#     ''' DROP TABLE IF EXISTS competances''',  
+#     ''' DROP TABLE IF EXISTS stagiaire ''',
+#     ''' DROP TABLE IF not EXISTS offre_emploi ''',
+#     ''' DROP TABLE IF EXISTS candidat ''',
+#     ''' DROP TABLE IF EXISTS recruteur ''',
+#     ''' DROP TABLE IF EXISTS utilisateur ''']
 
-for drop in drop_tables:
-    cur.execute(drop)
-    con.commit()
+# for drop in drop_tables:
+#     cur.execute(drop)
+#     con.commit()
 
 # create tables
 create_tables = [
@@ -83,6 +86,47 @@ create_tables = [
         FOREIGN KEY (_id_offre_emploi)
         REFERENCES offre_emploi(_id)
         ON UPDATE CASCADE ON DELETE CASCADE
+        
+    )'''
+    ,
+    ''' CREATE TABLE experiences(
+        _id SERIAL PRIMARY KEY,
+        _id_demande BIGINT UNSIGNED ,
+        description VARCHAR(255),
+        titre VARCHAR(120),
+        debut date,
+        fin date,
+        FOREIGN KEY (_id_demande)
+        REFERENCES demande(_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+       
+    )''',
+    
+    ''' CREATE TABLE formations(
+        _id SERIAL PRIMARY KEY,
+        _id_demande BIGINT UNSIGNED ,
+        description VARCHAR(255),
+        titre VARCHAR(120),
+        debut date,
+        fin date,
+        FOREIGN KEY (_id_demande)
+        REFERENCES demande(_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+        
+        
+    )'''
+    ,
+    
+    ''' CREATE TABLE competances(
+        _id SERIAL PRIMARY KEY,
+        _id_demande BIGINT UNSIGNED ,
+        description VARCHAR(255),
+        titre VARCHAR(120),
+       
+        FOREIGN KEY (_id_demande)
+        REFERENCES demande(_id)
+        ON UPDATE CASCADE ON DELETE CASCADE
+        
         
     )'''
 ]

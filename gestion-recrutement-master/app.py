@@ -6,6 +6,7 @@ from models.utilisateur import Utilisateur
 from models.recruteur import Recruteur
 from models.admin import Admin
 from models.offre_emploi import OffreEmploi
+from models.demande_emploi import Demandeemploi
 
 # to import .env file data
 import os
@@ -19,7 +20,7 @@ app.secret_key = os.getenv('SECRET_KEY')
 app.debug = True
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
 
     if request.method == 'POST':
@@ -40,7 +41,7 @@ def login():
                 return redirect(url_for('recruteur_menu'))
             elif utilisateur[7] == 'ADMIN':
                 return redirect(url_for('admin_menu')) 
-            elif utilisateur[7] == 'CONDIDAT':
+            elif utilisateur[7] == 'CANDIDAT':
                 return redirect(url_for('admin_menu'))  
 
         else:
@@ -152,7 +153,32 @@ def offre_emploi_delete(id):
     flash('offre supprimer', 'success')
     return redirect(url_for('offre_emploi_index'))
     #log out rucreteur
+
+@app.route('/demande-emploi', methods=['GET'])
+def demande_emploi():
+    return render_template('demandes/demande-emploi.html', demande_emploi=Demandeemploi.afficher_tous())
+    # , offre_emploi=OffreEmploi.afficher_tous()
+@app.route('/demande-emploi/info/<string:id>', methods=['GET', 'POST'])
+def demande_emploi_info(id):
+
+    if request.method == 'GET':
+        return render_template('demandes/info.html', demande_emploi=Demandeemploi.afficher(id))
+
+    # get form data
+    _id = request.form['_id']
+    name = request.form['name']
+    poste = request.form['poste']
+    date_creation= request.form['date_creation']
+   
+
     
+   
+    return redirect(url_for('demande_emploi'))
+
+
+   
+# new
+       
 @app.route('/logout')
 def logout():
     session.clear()
