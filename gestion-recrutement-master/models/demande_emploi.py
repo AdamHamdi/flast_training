@@ -12,7 +12,7 @@ class Demandeemploi:
             cur = con.cursor(buffered=True)
 
             sql = '''
-            SELECT demande._id, utilisateur.nom,utilisateur.prenom ,offre_emploi.poste,demande.date_creation FROM `demande`,`candidat`,`offre_emploi`,`utilisateur` WHERE candidat._id = demande._id_candidat AND demande._id_offre_emploi=offre_emploi._id AND utilisateur._id=candidat._id_utilisateur    '''
+             SELECT demande._id, utilisateur.nom,utilisateur.prenom ,offre_emploi.poste,demande.date_creation FROM `demande`,`candidat`,`utilisateur`,`offre_emploi` WHERE candidat._id = demande._id_candidat AND demande._id_offre_emploi=offre_emploi._id AND utilisateur._id=candidat._id_utilisateur '''
 
             cur.execute(sql)
 
@@ -33,8 +33,7 @@ class Demandeemploi:
             cur = con.cursor(buffered=True)
 
             sql = '''
-         SELECT demande._id, candidat.name ,offre_emploi.poste,demande.date_creation FROM `demande`,`candidat`,`offre_emploi` WHERE candidat._id = demande._id_candidat AND demande._id_offre_emploi=offre_emploi._id AND candidat._id = %s
-            ORDER BY date_creation DESC
+        SELECT demande._id, utilisateur.nom,utilisateur.prenom ,offre_emploi.poste,demande.date_creation FROM `demande`,`candidat`,`utilisateur`,`offre_emploi` WHERE candidat._id = demande._id_candidat AND demande._id_offre_emploi=offre_emploi._id AND utilisateur._id=candidat._id_utilisateur and candidat._id=%?  ORDER BY date_creation DESC
             '''
 
             cur.execute(sql, [id])

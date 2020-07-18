@@ -1,5 +1,6 @@
 # flask libraries
 from flask import Flask, render_template, request, session, redirect, url_for, flash
+from werkzeug.utils import secure_filename
 
 # import models
 from models.utilisateur import Utilisateur
@@ -42,7 +43,7 @@ def login():
             elif utilisateur[7] == 'ADMIN':
                 return redirect(url_for('admin_menu')) 
             elif utilisateur[7] == 'CANDIDAT':
-                return redirect(url_for('admin_menu'))  
+                return redirect(url_for('condidat_menu'))  
 
         else:
             error = 'svp, vérifiez votre email et mot de passe'
@@ -64,6 +65,11 @@ def recruteur_menu():
 @app.route('/admin', methods=['GET'])
 def admin_menu():
     return render_template('admin/index1.html')
+###########################
+#Candidat
+@app.route('/candidat', methods=['GET'])
+def candidat_menu():
+    return render_template('candidats/candidat.html')
 
 
 
@@ -76,6 +82,11 @@ Offre Emploi Menu
 @app.route('/offre-emploi', methods=['GET'])
 def offre_emploi_index():
     return render_template('/offre-emploi/index.html', offre_emploi=OffreEmploi.afficher_tous())
+   
+@app.route('/offre-emploi-candiat', methods=['GET'])
+def offre_emploi_can_index():
+    
+    return render_template('/candidats/index-candidat.html', offre_emploi=OffreEmploi.afficher_tous())    
 # new
 @app.route('/offre-emploi/new', methods=['GET', 'POST'])
 def offre_emploi_new():
@@ -99,6 +110,26 @@ def offre_emploi_new():
 
     flash('offre ajouter', 'success')
     return redirect(url_for('offre_emploi_index'))
+  #create demande d'omploi
+@app.route('/demande-emploi/create/<string:id>', methods=['GET', 'POST'])
+def demande_emploi_new():
+
+    if request.method == 'GET':
+        return render_template('demandes/new.html',offre=OffreEmploi.afficher(id))
+
+    # get form data
+    cv = request.form['cv']
+    date_creation = request.form['date_creation']
+    _id_offre_emploi=request.form['_id_offre_emploi']
+    _id_candidat=request.user 
+
+    
+
+    OffreEmploi.new(cv, _id_offre_emploi, date_creation, _id_candidat)
+
+    flash('Demande ajoutée avec success', 'success')
+    return redirect(url_for('offre_emploi_index'))
+  
 # edit
 @app.route('/offre-emploi/edit/<string:id>', methods=['GET', 'POST'])
 def offre_emploi_edit(id):
@@ -162,19 +193,46 @@ def demande_emploi():
 def demande_emploi_info(id):
 
     if request.method == 'GET':
-        return render_template('demandes/info.html', demande_emploi=Demandeemploi.afficher(id))
+        return render_template('demandes/info.html', demande=Demandeemploi.afficher(id))
 
-    # get form data
+    # # get form data
     _id = request.form['_id']
-    name = request.form['name']
+    nom = request.form['nom']
+    prenom= request.form['prenom']
     poste = request.form['poste']
     date_creation= request.form['date_creation']
    
 
     
    
-    return redirect(url_for('demande_emploi'))
+    return redirect(url_for('demande-emploi'))
 
+#show detail offre pour le candidat    
+@app.route('/offre-emploi-candidat/info/<string:id>', methods=['GET', 'POST'])
+def offre_emploi_info_cand(id):
+
+    if request.method == 'GET':
+        return render_template('/demandes/off-info.html', offre=OffreEmploi.afficher(id))
+
+    # get form data
+    poste = request.form['poste']
+    date_expiration = request.form['date_expiration']
+    salaire = request.form['salaire']
+    description = request.form['description']
+    exigence = request.form['exigence']
+    experience = request.form['experience']
+    type_contrat = request.form['type_contrat']
+    niveau_etude = request.form['niveau_etude']
+    avantage = request.form['avantage']
+
+    
+   
+    return redirect(url_for('offre_emploi_can_index'))
+
+#condidat
+@app.route('/candidat/offre-emploi', methods=['GET'])
+def offre_emploi_condidat():
+    return render_template('/offre-emploi/index.html', offre_emploi=OffreEmploi.afficher_tous())
 
    
 # new

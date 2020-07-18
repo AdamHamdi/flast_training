@@ -79,6 +79,7 @@ create_tables = [
         _id_candidat BIGINT UNSIGNED ,
         _id_offre_emploi BIGINT UNSIGNED ,
         date_creation date,
+        cv VARCHAR(255),
         FOREIGN KEY (_id_candidat)
         REFERENCES candidat(_id)
         ON UPDATE CASCADE ON DELETE CASCADE
