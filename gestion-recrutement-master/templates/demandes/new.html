@@ -1,9 +1,9 @@
-{% extends "base-candidat.html" %} {% block title %} Ajouter demande d'Emploi {% endblock %} {% block body %}
+{% extends "form.html" %} {% block title %} Ajouter demande d'Emploi {% endblock %} {% block body %}
 <div class="content">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
+                <div class="card bg-light">
                     <div class="card-header card-header-primary">
                         <h4 class="card-title ">Ajouter demande d'Emploi</h4>
                         <p class="card-category"> </p>
@@ -11,16 +11,12 @@
                     <div class="card-body ">
 
                         <form action="" method="post" enctype="multipart/form-data">
+                            <input type="hidden" value="{{ offre[0] }}">
 
-
-                            <div class="custom-file ">
-
-                                <label class="custom-file-label" for="inputGroupFile01"><p style="color:black">Telecharger votre cv</label>
-                                <p style="color:black"> <input type="file" class="custom-file-input" id="inputGroupFile01"></p>
+                            <div class="form-group">
+                                <label for="my-input">Telecharger votre cv</label>
+                                <input id="my-input" class="form-control" type="file" name="cv">
                             </div>
-                            <br>
-                            <br>
-
                             <div class="form-group">
                                 <label for="my-input"><p style="color:black">Date de creation</p></label>
                                 <input id="my-input" class="form-control" type="date" name="date_creation">

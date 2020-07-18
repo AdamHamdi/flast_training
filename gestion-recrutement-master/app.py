@@ -112,20 +112,19 @@ def offre_emploi_new():
     return redirect(url_for('offre_emploi_index'))
   #create demande d'omploi
 @app.route('/demande-emploi/create/<string:id>', methods=['GET', 'POST'])
-def demande_emploi_new():
+def demande_emploi_create(id):
 
     if request.method == 'GET':
         return render_template('demandes/new.html',offre=OffreEmploi.afficher(id))
 
     # get form data
-    cv = request.form['cv']
+    _id_offre_emploi = request.form['id']
     date_creation = request.form['date_creation']
-    _id_offre_emploi=request.form['_id_offre_emploi']
-    _id_candidat=request.user 
+    cv=request.form['cv']
+    _id_candidat=flask_login.user_unauthorized
 
-    
-
-    OffreEmploi.new(cv, _id_offre_emploi, date_creation, _id_candidat)
+    OffreEmploi.edit(poste, type_contrat, date_expiration, salaire,
+                     niveau_etude, experience, description, exigence, avantage, id)
 
     flash('Demande ajoutée avec success', 'success')
     return redirect(url_for('offre_emploi_index'))
