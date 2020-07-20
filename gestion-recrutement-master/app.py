@@ -1,6 +1,7 @@
 # flask libraries
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 from werkzeug.utils import secure_filename
+from config import open_connection, close_connection
 
 # import models
 from models.utilisateur import Utilisateur
@@ -56,24 +57,30 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     
-       if request.method == 'POST':
+       if request.method == 'GET':
+           return render_template('/register.html')
        
-
+       else:
     # get form data
             nom = request.form['nom']
             prenom = request.form['prenom']
             adresse = request.form['adresse']
             tel = request.form['tel']
             email = request.form['email']
-            mot_de_passe = request.form['mot_de_passe']
+            mot_de_passe = request.form['mot_de_passe']#.encode('UTF-8')
+            
             role = request.form['role']
-    
+            
+            #Candidat.create(nom = nom, prenom = prenom, email = email,adresse = adresse, tel = tel, mot_de_passe = mot_de_passe,role=role )
+            
+            cur.mysql.connection.cursor()
+            cur.execute("INSERT INTO utilisateur(nom, prenom, adresse, tel, email, mot_de_passe, role) VALUES(%s, %s, %s, %s, %s, %s, %s)",(nom, prenom, adresse, tel, email, mot_de_passe, role))
+            mysql.connection.commit()
+            
 
-            Candidat.create(nom,prenom,adresse,tel,email,mot_de_passe,role)
-
-            flash('Candidat ajout2', 'success')
+            flash('Candidat ajouté', 'success')
             return redirect(url_for('candidat_menu'))
-       return render_template('/register.html')
+       
 
 ################
 '''

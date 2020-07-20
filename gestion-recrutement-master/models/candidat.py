@@ -15,16 +15,16 @@ class Candidat:
             sql = '''
                     INSERT INTO utilisateur(nom, prenom, adresse, tel, email, mot_de_passe, role)
                     VALUES(%s, %s, %s, %s, %s, %s, %s)
-                    RETURNING _id
+                    RETURNING id
                     '''
 
             cur.execute(sql, [nom, prenom, adresse, tel, email, mot_de_passe, role])
 
             con.commit()
 
-            id = cur.fetchone()[0]
+            id_utilisateur = cur.fetchone()[0]
 
-            return id
+            return id_utilisateur
 
         except Exception as e:
             print(e)
