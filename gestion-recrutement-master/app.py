@@ -6,6 +6,7 @@ from werkzeug.utils import secure_filename
 from models.utilisateur import Utilisateur
 from models.recruteur import Recruteur
 from models.admin import Admin
+from models.candidat import Candidat
 from models.offre_emploi import OffreEmploi
 from models.demande_emploi import Demandeemploi
 
@@ -20,7 +21,7 @@ app = Flask(__name__)
 app.secret_key = os.getenv('SECRET_KEY')
 app.debug = True
 
-
+#login
 @app.route('/', methods=['GET', 'POST'])
 def login():
 
@@ -43,7 +44,7 @@ def login():
             elif utilisateur[7] == 'ADMIN':
                 return redirect(url_for('admin_menu')) 
             elif utilisateur[7] == 'CANDIDAT':
-                return redirect(url_for('condidat_menu'))  
+                return redirect(url_for('candidat_menu'))  
 
         else:
             error = 'svp, vérifiez votre email et mot de passe'
@@ -51,6 +52,28 @@ def login():
 
     return render_template('login.html')
 
+#register
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    
+       if request.method == 'POST':
+       
+
+    # get form data
+            nom = request.form['nom']
+            prenom = request.form['prenom']
+            adresse = request.form['adresse']
+            tel = request.form['tel']
+            email = request.form['email']
+            mot_de_passe = request.form['mot_de_passe']
+            role = request.form['role']
+    
+
+            Candidat.create(nom,prenom,adresse,tel,email,mot_de_passe,role)
+
+            flash('Candidat ajout2', 'success')
+            return redirect(url_for('candidat_menu'))
+       return render_template('/register.html')
 
 ################
 '''
