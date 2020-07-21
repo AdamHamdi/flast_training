@@ -11,6 +11,7 @@ from models.candidat import Candidat
 from models.offre_emploi import OffreEmploi
 from models.demande_emploi import Demandeemploi
 
+
 # to import .env file data
 import os
 from dotenv import load_dotenv
@@ -145,19 +146,26 @@ def offre_emploi_new():
 def demande_emploi_create(id):
 
     if request.method == 'GET':
-        return render_template('demandes/new.html',offre=OffreEmploi.afficher(id))
-
+        return render_template('demandes/new.html', offre=OffreEmploi.afficher(id))
+    else:
     # get form data
-    _id_offre_emploi = request.form['id']
-    date_creation = request.form['date_creation']
-    cv=request.form['cv']
-    _id_candidat=flask_login.user_unauthorized
+     # _id_offre_emploi = request.form['_id_offre_emploi']
+      date_creation = request.form['date_creation']
+      poste = request.form['poste']
+      description = request.form['description']
+      competence = request.form['competence']
+      experience = request.form['experience']
+      _id_utlisateur=Utilisateur.authentification()
+      
+          # User is authenticated
+      niveau_etude = request.form['niveau_etude']
+      formation = request.form['formation']
 
-    OffreEmploi.edit(poste, type_contrat, date_expiration, salaire,
-                     niveau_etude, experience, description, exigence, avantage, id)
+      demande.new(poste, date_creation,
+                     niveau_etude, experience, description, exigence, formation)
 
-    flash('Demande ajoutée avec success', 'success')
-    return redirect(url_for('offre_emploi_index'))
+      flash('Demande ajoutée avec success', 'success')
+      return redirect(url_for('offre_emploi_index'))
   
 # edit
 @app.route('/offre-emploi/edit/<string:id>', methods=['GET', 'POST'])
