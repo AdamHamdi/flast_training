@@ -47,28 +47,27 @@ class Demandeemploi:
             close_connection(con, cur)
 
     # @staticmethod
-    # def new(poste, type_contrat, date_fin_offre, salaire,
-    #         niveau_d_etude, experiences, description_poste, exigences, avantages):
+    def new(poste, type_contrat, date_fin_offre, salaire,
+            niveau_d_etude, experiences, description_poste, exigences, avantages):
 
-    #     try:
+        try:
 
-    #         con = open_connection()
-    #         cur = con.cursor(buffered=True)
+            con = open_connection()
+            cur = con.cursor(buffered=True)
 
-    #         sql = '''
-    #             INSERT INTO demande(poste, type_contrat, date_fin_offre, salaire, niveau_d_etude, experiences, description_poste, exigences, avantages) 
-    #             VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)
-    #         '''
+            sql = '''
+                INSERT INTO demande(poste, utilisateur_id,offre_emploi_id, niveau_d_etude, experiences, description, formations,competences) 
+                VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)
+            '''
 
-    #         cur.execute(sql, [poste, type_contrat, date_fin_offre, salaire,
-    #                           niveau_d_etude, experiences, description_poste, exigences, avantages])
+            cur.execute(sql, [poste, _id_utilisateur,_id_offre_emploi, niveau_d_etude, experiences, description, formations,competences])
 
-    #         con.commit()
+            con.commit()
 
-    #     except Exception as e:
-    #         print('Error: ', e)
-    #     finally:
-    #         close_connection(con, cur)
+        except Exception as e:
+            print('Error: ', e)
+        finally:
+            close_connection(con, cur)
 
     # @staticmethod
     # def edit(poste, type_contrat, date_fin_offre, salaire,

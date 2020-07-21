@@ -76,12 +76,16 @@ create_tables = [
     )''',
     ''' CREATE TABLE demande(
         _id SERIAL PRIMARY KEY,
-        _id_candidat BIGINT UNSIGNED ,
+        _id_utilisateur BIGINT UNSIGNED ,
         _id_offre_emploi BIGINT UNSIGNED ,
-        date_creation date,
-        cv VARCHAR(255),
-        FOREIGN KEY (_id_candidat)
-        REFERENCES candidat(_id)
+        poste VARCHAR(255),
+        niveau_d_etude VARCHAR(255),
+        experiences VARCHAR(255),
+        description VARCHAR(255),
+        formations VARCHAR(255),
+        competences VARCHAR(255),
+        FOREIGN KEY (_id_utilisateur)
+        REFERENCES utilisateur(_id)
         ON UPDATE CASCADE ON DELETE CASCADE
         ,
         FOREIGN KEY (_id_offre_emploi)
