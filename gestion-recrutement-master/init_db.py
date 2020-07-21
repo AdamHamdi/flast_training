@@ -78,6 +78,7 @@ create_tables = [
         _id SERIAL PRIMARY KEY,
         _id_utilisateur BIGINT UNSIGNED ,
         _id_offre_emploi BIGINT UNSIGNED ,
+        date_creation date,
         poste VARCHAR(255),
         niveau_d_etude VARCHAR(255),
         experiences VARCHAR(255),
