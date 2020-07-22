@@ -9,22 +9,21 @@ class Candidat:
 
         try:
 
+   
             con = open_connection()
-            cur = con.cursor()
+            cur = con.cursor(buffered=True)
 
             sql = '''
                     INSERT INTO utilisateur(nom, prenom, adresse, tel, email, mot_de_passe, role)
                     VALUES(%s, %s, %s, %s, %s, %s, %s)
-                    RETURNING id
+                    
                     '''
 
             cur.execute(sql, [nom, prenom, adresse, tel, email, mot_de_passe, role])
 
             con.commit()
 
-            id_utilisateur = cur.fetchone()[0]
-
-            return id_utilisateur
+           
 
         except Exception as e:
             print(e)

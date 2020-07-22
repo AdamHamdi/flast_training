@@ -61,26 +61,24 @@ def register():
        if request.method == 'GET':
            return render_template('/register.html')
        
-       else:
+       
     # get form data
-            nom = request.form['nom']
-            prenom = request.form['prenom']
-            adresse = request.form['adresse']
-            tel = request.form['tel']
-            email = request.form['email']
-            mot_de_passe = request.form['mot_de_passe']#.encode('UTF-8')
+           nom = request.form['nom']
+           prenom = request.form['prenom']
+           adresse = request.form['adresse']
+           tel = request.form['tel']
+           email = request.form['email']
+           mot_de_passe = request.form['mot_de_passe']#.encode('UTF-8')
             
-            role = request.form['role']
+           role = request.form['role']
             
-            #Candidat.create(nom = nom, prenom = prenom, email = email,adresse = adresse, tel = tel, mot_de_passe = mot_de_passe,role=role )
+           Candidat.create(nom ,  prenom,  email, adresse, tel,  mot_de_passe,role )
             
-            cur.mysql.connection.cursor()
-            cur.execute("INSERT INTO utilisateur(nom, prenom, adresse, tel, email, mot_de_passe, role) VALUES(%s, %s, %s, %s, %s, %s, %s)",(nom, prenom, adresse, tel, email, mot_de_passe, role))
-            mysql.connection.commit()
+       
             
 
-            flash('Candidat ajouté', 'success')
-            return redirect(url_for('candidat_menu'))
+           flash('Candidat ajouté', 'success')
+           return redirect(url_for('candidat_menu'))
        
 
 ################
@@ -155,14 +153,16 @@ def demande_emploi_create(id):
       description = request.form['description']
       competence = request.form['competence']
       experience = request.form['experience']
-      _id_utlisateur=Utilisateur.authentification()
+    #   if _id_utlisateur.is_authenticated():
+    #      _id_utlisateur = _id_utlisateur.username
+     # _id_utlisateur=Utilisateur.authentification()
       
           # User is authenticated
       niveau_etude = request.form['niveau_etude']
       formation = request.form['formation']
 
-      demande.new(poste, date_creation,
-                     niveau_etude, experience, description, exigence, formation)
+      Demandeemploi.new(poste, date_creation,
+                     niveau_etude, experience, description, competence, formation)
 
       flash('Demande ajoutée avec success', 'success')
       return redirect(url_for('offre_emploi_index'))
